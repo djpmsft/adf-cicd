@@ -1,0 +1,11 @@
+{
+	"name": "AKV",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://daperlov-dev.vault.azure.net/"
+		}
+	}
+}
