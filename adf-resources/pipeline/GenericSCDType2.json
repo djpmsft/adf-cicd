@@ -1,0 +1,81 @@
+{
+	"name": "GenericSCDType2",
+	"properties": {
+		"description": "Using byNames to fully parameterize a Slowly Change Dimension Type 2 patter",
+		"activities": [
+			{
+				"name": "GenericSCDType2",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "GenericSCDType2",
+						"type": "DataFlowReference",
+						"parameters": {
+							"PrimaryKey": {
+								"value": "'@{pipeline().parameters.PrimaryKey}'",
+								"type": "Expression"
+							},
+							"Columns": {
+								"value": "'@{pipeline().parameters.ColumnNames}'",
+								"type": "Expression"
+							}
+						},
+						"datasetParameters": {
+							"GenericInput": {
+								"Folder": {
+									"value": "@pipeline().parameters.IncomingDimensionFolder",
+									"type": "Expression"
+								}
+							},
+							"ExistingDimensionTable": {
+								"Table": {
+									"value": "@pipeline().parameters.DimensionTable",
+									"type": "Expression"
+								}
+							},
+							"DimensionTableSink": {
+								"Table": {
+									"value": "@pipeline().parameters.DimensionTable",
+									"type": "Expression"
+								}
+							}
+						}
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					}
+				}
+			}
+		],
+		"parameters": {
+			"IncomingDimensionFolder": {
+				"type": "string"
+			},
+			"DimensionTable": {
+				"type": "string"
+			},
+			"PrimaryKey": {
+				"type": "string"
+			},
+			"ColumnNames": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "GenericSCD"
+		},
+		"annotations": [],
+		"lastPublishTime": "2020-10-12T17:56:18Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
