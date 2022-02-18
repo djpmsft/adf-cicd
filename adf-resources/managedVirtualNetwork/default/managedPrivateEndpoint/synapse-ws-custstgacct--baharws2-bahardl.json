@@ -1,0 +1,7 @@
+{
+	"name": "synapse-ws-custstgacct--baharws2-bahardl",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/5e7a9765-5102-4153-ab82-0631a2d6d18b/resourceGroups/BaharRG/providers/Microsoft.Storage/storageAccounts/bahardl",
+		"groupId": "dfs"
+	}
+}

@@ -1,0 +1,13 @@
+{
+	"name": "Use file metadata in queries",
+	"properties": {
+		"content": {
+			"query": "/* Filename */\n/* The following sample reads the NYC Yellow Taxi data files for the month September of 2017 and returns the number of rides per file. */\nSELECT\n    nyc.filename() AS [filename]\n    ,COUNT_BIG(*) AS [rows]\nFROM\n    OPENROWSET(\n    BULK 'https://sqlondemandstorage.blob.core.windows.net/public-parquet/taxi/year=2017/month=9/*.parquet',\n    FORMAT='PARQUET'\n    ) nyc\nGROUP BY nyc.filename();\n\n/* The following example shows how filename() can be used in the WHERE clause to filter the files to be read. */\nSELECT\n    r.filename() AS [filename]\n    ,COUNT_BIG(*) AS [rows]\nFROM OPENROWSET(\n    BULK 'https://sqlondemandstorage.blob.core.windows.net/public-csv/taxi/yellow_tripdata_2017-*.csv',\n    FORMAT = 'CSV',\n    PARSER_VERSION = '2.0',\n    FIRSTROW = 2)\n    WITH (C1 varchar(200) ) AS [r]\nWHERE\n    r.filename() IN ('yellow_tripdata_2017-10.csv', 'yellow_tripdata_2017-11.csv', 'yellow_tripdata_2017-12.csv')\nGROUP BY\n    r.filename()\nORDER BY\n    [filename];\n\n\n/* Filepath */\n/* The following sample reads NYC Yellow Taxi data files for the last three months of 2017. It returns the number of rides per file path. */\nSELECT\n    r.filepath() AS filepath\n    ,COUNT_BIG(*) AS [rows]\nFROM OPENROWSET(\n    BULK 'https://sqlondemandstorage.blob.core.windows.net/public-csv/taxi/yellow_tripdata_2017-1*.csv',\n    FORMAT = 'CSV',\n    PARSER_VERSION = '2.0',\n    FIRSTROW = 2\n    )\n    WITH (\n        vendor_id INT\n    ) AS [r]\nGROUP BY\n    r.filepath()\nORDER BY\n    filepath;\n\n/* The following example shows how filepath() can be used in the WHERE clause to filter the files to be read, shows the last three months of 2017. */\nSELECT\n    r.filepath() AS filepath\n    ,r.filepath(1) AS [year]\n    ,r.filepath(2) AS [month]\n    ,COUNT_BIG(*) AS [rows]\nFROM OPENROWSET(\n    BULK 'https://sqlondemandstorage.blob.core.windows.net/public-csv/taxi/yellow_tripdata_*-*.csv',\n    FORMAT = 'CSV',\n    PARSER_VERSION = '2.0',\n    FIRSTROW = 2\n    )\nWITH (\n    vendor_id INT\n) AS [r]\nWHERE\n    r.filepath(1) IN ('2017')\n    AND r.filepath(2) IN ('10', '11', '12')\nGROUP BY\n    r.filepath()\n    ,r.filepath(1)\n    ,r.filepath(2)\nORDER BY\n    filepath;\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
