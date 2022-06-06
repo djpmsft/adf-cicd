@@ -1,0 +1,9 @@
+{
+	"name": "hADFTutorialFactory",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "394b2b16-5ef2-4aa9-8cee-cf5c4691bb3c",
+		"tenantId": "72f988bf-86f1-41af-91ab-2d7cd011db47"
+	}
+}
