@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "CopyChessDatabase",
 	"properties": {
 		"activities": [
 			{
