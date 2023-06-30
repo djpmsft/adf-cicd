@@ -1,0 +1,9 @@
+{
+	"name": "learningAZADF",
+	"location": "canadacentral",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "f5df60de-3adc-4944-bafd-1b3a38438f09",
+		"tenantId": "8d981e31-8642-4ee1-aa96-3f75071482c2"
+	}
+}
